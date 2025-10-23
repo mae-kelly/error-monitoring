@@ -9,22 +9,26 @@
     "postinstall": "prisma generate"
   },
   "dependencies": {
+    "@azure/msal-node": "^2.6.0",
+    "@microsoft/microsoft-graph-client": "^3.0.7",
+    "@prisma/client": "^5.7.0",
+    "date-fns": "^3.0.0",
+    "lucide-react": "^0.294.0",
     "next": "^14.0.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "@prisma/client": "^5.7.0",
-    "@microsoft/microsoft-graph-client": "^3.0.7",
-    "@azure/msal-node": "^2.6.0",
     "recharts": "^2.10.3",
-    "three": "^0.160.0",
-    "lucide-react": "^0.294.0",
-    "date-fns": "^3.0.0"
+    "three": "^0.160.0"
   },
   "devDependencies": {
+    "@tailwindcss/postcss": "^4.1.16",
     "@types/node": "^20.10.0",
     "@types/react": "^18.2.0",
     "@types/three": "^0.160.0",
-    "typescript": "^5.3.0",
-    "prisma": "^5.7.0"
+    "autoprefixer": "^10.4.16",
+    "postcss": "^8.4.31",
+    "prisma": "^5.7.0",
+    "tailwindcss": "^3.4.0",
+    "typescript": "^5.3.0"
   }
 }
