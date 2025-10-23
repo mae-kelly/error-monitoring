@@ -1,3 +1,5 @@
+// File: src/lib/outlook.ts
+
 import { ConfidentialClientApplication } from '@azure/msal-node';
 import { Client } from '@microsoft/microsoft-graph-client';
 import { prisma } from './prisma';
@@ -5,7 +7,10 @@ import { prisma } from './prisma';
 const msalConfig = {
   auth: {
     clientId: process.env.AZURE_CLIENT_ID!,
-    authority: `https://login.microsoftonline.com/${process.env.AZURE_TENANT_ID}`,
+    // Use 'common' for multi-tenant support (allows any Microsoft account)
+    // Use 'organizations' for any organizational account
+    // Use 'consumers' for personal Microsoft accounts only
+    authority: `https://login.microsoftonline.com/common`,
     clientSecret: process.env.AZURE_CLIENT_SECRET!,
   },
 };
