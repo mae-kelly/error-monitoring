@@ -1,4 +1,6 @@
 // File: src/lib/outlook.ts
+// Handles Microsoft OAuth authentication and Graph API interactions
+// Uses 'common' tenant to support Fiserv organizational Microsoft accounts
 
 import { ConfidentialClientApplication } from '@azure/msal-node';
 import { Client } from '@microsoft/microsoft-graph-client';
@@ -7,10 +9,10 @@ import { prisma } from './prisma';
 const msalConfig = {
   auth: {
     clientId: process.env.AZURE_CLIENT_ID!,
-    // Use 'common' for multi-tenant support (allows any Microsoft account)
-    // Use 'organizations' for any organizational account
-    // Use 'consumers' for personal Microsoft accounts only
-    authority: `https://login.microsoftonline.com/common`,
+    // Using 'common' tenant allows authentication with any Microsoft organizational account
+    // This includes Fiserv corporate accounts (@fiserv.com)
+    // Users will enter their Fiserv credentials at the Microsoft login page
+    authority: 'https://login.microsoftonline.com/common',
     clientSecret: process.env.AZURE_CLIENT_SECRET!,
   },
 };
@@ -21,6 +23,8 @@ export async function getAuthUrl() {
   const authCodeUrlParameters = {
     scopes: ['https://graph.microsoft.com/Mail.Read', 'offline_access'],
     redirectUri: `${process.env.NEXT_PUBLIC_BASE_URL}/api/outlook/auth`,
+    // Force account selection - prevents auto-login with cached account
+    prompt: 'select_account',
   };
   return await msalClient.getAuthCodeUrl(authCodeUrlParameters);
 }
